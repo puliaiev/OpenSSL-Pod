@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
     BASEPATH="${PWD}"
     CURRENTPATH="${TMPDIR}/openssl"
-    ARCHS="i386 x86_64 armv7 arm64"
+    ARCHS="i386 x86_64 armv7 arm64 arm64simulator"
     DEVELOPER=`xcode-select -print-path`
 
     mkdir -p "${CURRENTPATH}"
@@ -38,6 +38,12 @@ Pod::Spec.new do |s|
       else
         sed -ie "s!static volatile sig_atomic_t intr_signal;!static volatile intr_signal;!" "crypto/ui/ui_openssl.c"
         PLATFORM="iPhoneOS"
+      fi
+
+      if [ "${ARCH}" == "arm64simulator" ] ;
+      then
+        ARCH="arm64"
+        PLATFORM="iPhoneSimulator"
       fi
 
       export CROSS_TOP="${DEVELOPER}/Platforms/${PLATFORM}.platform/Developer"
