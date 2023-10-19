@@ -12,6 +12,8 @@ Pod::Spec.new do |s|
   s.license	        = { :type => 'OpenSSL (OpenSSL/SSLeay)', :file => 'LICENSE' }
 
   s.prepare_command = <<-CMD
+    curl -O https://www.openssl.org/source/openssl-1.0.2p.tar.gz
+    tar --strip-components=1 -zxf openssl-1.0.2p.tar.gz
     VERSION="1.0.2p"
     SDKVERSION=`xcrun --sdk iphoneos --show-sdk-version 2> /dev/null`
     MIN_SDKVERSION="7.0"
